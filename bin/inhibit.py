@@ -1,7 +1,6 @@
 import dbus
 import signal
 import logging
-from datetime import datetime
 
 
 def handler(sig_num, curr_stack_frame):
