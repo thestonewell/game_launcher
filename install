@@ -1,0 +1,3 @@
+#! /bin/sh
+
+cp bin/gi.sh bin/inhibit.py $HOME/bin/
