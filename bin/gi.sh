@@ -1,6 +1,4 @@
 #! /bin/bash
-# https://notabug.org/Krock/GI-on-Linux
-
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
@@ -14,16 +12,19 @@ qdbus org.kde.KWin /Compositor suspend
 python3 "${SCRIPT_DIR}/inhibit.py" &
 INHIBIT_PID=$!
 
-cd '/home/thomas/.wine/drive_c/Program Files/Genshin Impact/Genshin Impact game'
+WINEPREFIX="${WINEPREFIX:-$HOME/.wine}"
 
-# configure game contollers
+cd "${WINEPREFIX}/drive_c/Program Files/Genshin Impact/Genshin Impact game"
+
+# configure game contollers (PS3 Doublshock, Xbox Wireless)
+# could configure the entire db if needed
 export SDL_GAMECONTROLLERCONFIG="050000004c0500006802000000800000,PS3 Controller,a:b0,b:b1,back:b8,dpdown:b14,dpleft:b15,dpright:b16,dpup:b13,guide:b10,leftshoulder:b4,leftstick:b11,lefttrigger:a2,leftx:a0,lefty:a1,rightshoulder:b5,rightstick:b12,righttrigger:a5,rightx:a3,righty:a4,start:b9,x:b3,y:b2,platform:Linux,
 050000005e040000130b000009050000,Xbox Series Controller,a:b0,b:b1,back:b10,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,guide:b12,leftshoulder:b6,leftstick:b13,lefttrigger:a5,leftx:a0,lefty:a1,rightshoulder:b7,rightstick:b14,righttrigger:a4,rightx:a2,righty:a3,start:b11,x:b3,y:b4,platform:Linux,"
-# optional DXVK HUD stats
 
 # Configure DXVK Headup Display settings .. if you fancy it
 #export DXVK_HUD=version,devinfo,fps
 #export DXVK_HUD=version,fps
+#export DXVK_HUD=api,fps
 
 wine cmd /c launcher.bat
 
